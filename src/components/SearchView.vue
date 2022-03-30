@@ -1,6 +1,7 @@
 <template>
   <main class="app-main">
     <SearchInput @searchReq="searchReq"/>
+    <SearchResult :result="this.result"/>
   </main>
 </template>
 
@@ -9,24 +10,35 @@ import axios from 'axios';
 
 // component
 import SearchInput from '@/components/SearchInput.vue'
+import SearchResult from '@/components/SearchResult.vue'
 
 export default {
   data () {
     return {
-      hospital: {}
+      hospital: [],
+      result: {}
     }
   },
   components: {
-    SearchInput
+    SearchInput, SearchResult
   },
   methods: {
+    // 찾는 함수
+    findHosiptal: function(message, data) {
+      if (data.yadmNm.includes(message)) {
+        this.result = data;
+        return true;
+      }
+      return false;
+    },
+    //요청
     searchReq: function(message) {
-      console.log(message);
       axios.get(
         '/B551182/hospInfoService1/getHospBasisList1',
         {
           params: {
-            ServiceKey: `${process.env.VUE_APP_API_KEY}`,
+            // ServiceKey decode
+            ServiceKey: unescape(`${process.env.VUE_APP_API_KEY}`),
             numOfRows: 1000,
             pageNo: 1
           },
@@ -34,7 +46,12 @@ export default {
         }
       )
         .then(res => {
-          console.log(res.data);
+          res.data.response.body.items.item.forEach(e => {
+            if (this.findHosiptal(message, e)) {
+              return ;
+            }
+            this.hospital.push(e);
+          });
         })
         .catch(err => console.error(err))
     }
