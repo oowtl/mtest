@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: '/mtest',
+  publicPath: '',
   outputDir: './docs',
   devServer: {
     proxy: {
