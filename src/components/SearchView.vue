@@ -34,7 +34,7 @@ export default {
     //요청
     searchReq: function(message) {
       axios.get(
-        '/B551182/hospInfoService1/getHospBasisList1',
+        'http://apis.data.go.kr/B551182/hospInfoService1/getHospBasisList1',
         {
           params: {
             // ServiceKey decode
