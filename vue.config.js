@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: "MOUDA",
   devServer: {
     proxy: {
       '/B551182' : {
