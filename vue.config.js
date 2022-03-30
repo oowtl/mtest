@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: "MOUDA",
+  publicPath: "mtest",
   devServer: {
     proxy: {
       '/B551182' : {
