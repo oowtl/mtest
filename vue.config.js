@@ -1,5 +1,6 @@
 module.exports = {
-  publicPath: "/mtest",
+  publicPath: '/mtest',
+  outputDir: './docs',
   devServer: {
     proxy: {
       '/B551182' : {
